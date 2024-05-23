@@ -1,0 +1,38 @@
+﻿@using la_mia_pizzeria_static.Data
+@model Pizzas
+<link rel="stylesheet" href="~/css/VediPizza.css" asp-append-version="true" />
+
+
+
+<div class="bg-dark text-white">
+    <div class="container d-flex justify-content-center align-items-center flex-column min-vh-100">
+        <div class="card show-pizza-card">
+            <div class="card-body text-center">
+                <div class="card-text">
+                    <h2 class="card-title">@Model.Name</h2>
+                    <p>@Model.Description</p>
+                    @if (!string.IsNullOrEmpty(Model.Image))
+                    {
+                        <img src="@Url.Content(Model.Image)" class="img-fluid show-pizza-image" alt="@Model.Name">
+                    }
+                    else
+                    {
+                        <img src="~/img/NoPizza.jpeg" class="img-fluid show-pizza-image" alt="Default Image">
+                    }
+                    <p class="h41">@Model.Price &euro;</p>
+                    <p>Categoria: <br /> @($"{Model.GetDisplayedCategory()}")</p>
+                    <div>
+                        <p>Ingredienti:</p>
+                        <div class="d-flex gap-2">
+                            @foreach (var ingredient in Model.Ingredients)
+                            {
+                                <div>@ingredient.Name</div>
+                            }
+                        </div>
+                    </div>
+                    <a href="@Url.Action("Index", "Pizza")"><button class="show-button">Back</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

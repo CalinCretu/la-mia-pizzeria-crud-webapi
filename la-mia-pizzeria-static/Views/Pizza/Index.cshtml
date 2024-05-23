@@ -1,0 +1,55 @@
+﻿@using la_mia_pizzeria_static.Data
+
+@model List<Pizzas>
+@{
+    using la_mia_pizzeria_static.Data.PizzasContext db = new PizzasContext();
+}
+<link rel="stylesheet" href="~/css/Index.css" asp-append-version="true" />
+
+<div class="main text-center">
+    <div class="hero">
+        <h1>
+            Byte Me Pizzeria
+        </h1>
+        <h2>
+            Where Every Slice Tells a little Story
+        </h2>
+    </div>
+    <div class="menu-title">
+        <h2>
+            Special Ones
+        </h2>
+    </div>
+    <div class="container">
+        @foreach (var pizza in Model)
+        {
+            <div class="pizza-card">
+                <div class="pizza-image">
+                    @if (!string.IsNullOrEmpty(pizza.Image))
+                    {
+                        <img src="@Url.Content(pizza.Image)" class="img-fluid" alt="@pizza.Name">
+                    }
+                    else
+                    {
+                        <img src="~/img/NoPizza.jpeg" class="img-fluid" alt="Default Image">
+                    }
+                </div>
+                <div class="pizza-details">
+                    <h2>@pizza.Name</h2>
+                    <p>@pizza.Description</p>
+                    <p class="price">@pizza.Price &euro;</p>
+                    <a href="@Url.Action("VediPizza", "Pizza", new{id = pizza.Id})"><button class="details-button">Details</button></a>
+                    <a href="@Url.Action("Update", "Pizza", new{id = pizza.Id})"><button class="details-button">Edit</button></a>
+                    <a>
+                        <form asp-controller="Pizza" asp-action="Delete" asp-route-id="@pizza.Id" method="post">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="delete-button">
+                                DELETE
+                            </button>
+                        </form>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

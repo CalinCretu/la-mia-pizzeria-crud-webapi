@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"] - la_mia_pizzeria_static</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/MyLayoutCSS.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/la_mia_pizzeria_static.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Global.css" asp-append-version="true" />
+
+
+    <link rel="stylesheet" href="~/css/VediPizza.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <div class="my-container container-lg">
+            <div class="logo">
+                <img src="~/img/PizzaLogoRound.png">
+            </div>
+            <ul class="menus">
+                <li><a href="@Url.Action("Index", "Pizza")">Home</a></li>
+                <li>Menu</li>
+                <li>About Us</li>
+                <li><a href="@Url.Action("Create", "Pizza")">Add Pizza</a></li>
+                <li><a aria-current="page" href="@Url.Action("Index", "Pizza")">Admin</a></li>
+                <div><partial name="_LoginPartial" /></div>
+            </ul>
+            <div class="icon">
+                <img src="~/img/RubberDuck.png">
+            </div>
+           
+        </div>
+       
+    </header>
+    <main>
+        <div>
+            @RenderBody()
+        </div>
+    </main>
+    <footer>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

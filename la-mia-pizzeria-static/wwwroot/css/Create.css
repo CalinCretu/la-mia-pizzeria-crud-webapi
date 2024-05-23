@@ -1,0 +1,55 @@
+﻿main{
+    background-image: url(/img/Index_background.png)
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    min-height: 100vh;
+    padding-top: 4rem;
+}
+
+.form-pizza {
+    max-width: 600px;
+    width: 100%;
+    border: 1px solid #444;
+    border-radius: 10px;
+    background-color: #222;
+    margin-top: 2rem;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 5px;
+}
+
+.text-danger {
+    font-size: 0.875rem;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+.show-button {
+    margin: 20px 0px;
+    background-color: transparent;
+    color: white;
+    box-shadow: inset 0 0 10px orange;
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    transition: box-shadow 0.5s ease, transform 0.1s ease;
+}
+
+    .show-button:hover {
+        border: 1px solid orange;
+        box-shadow: inset 0 0 10px black;
+    }
+
+    .show-button:active {
+        transform: scale(0.95);
+    }

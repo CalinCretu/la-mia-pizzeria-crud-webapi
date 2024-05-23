@@ -1,0 +1,69 @@
+﻿@model PizzasFormModel
+
+<link rel="stylesheet" href="~/css/Create.css" asp-append-version="true" /> 
+
+@if (User.IsInRole("Admin"))
+{
+    <div class="main">
+    <div class="container d-flex justify-content-center align-items-start min-vh-100 mt-5">
+        <form asp-controller="Pizza" asp-acion="Update" asp-route-id="@Model.Pizzas.Id" method="post" class="form-pizza bg-dark text-white p-4 rounded">
+            @Html.AntiForgeryToken()
+            <div class="text-center">
+                <h2>Edit Pizza</h2>
+            </div>
+            <div class="mb-3">
+                <strong>Nome:</strong>
+                <input asp-for="Pizzas.Name" class="d-block w-100" />
+                <span asp-validation-for="Pizzas.Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <strong>Descrizione:</strong>
+                <input asp-for="Pizzas.Description" class="d-block w-100" />
+                <span asp-validation-for="Pizzas.Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <strong>Prezzo:</strong>
+                <input asp-for="Pizzas.Price" class="d-block w-100" />
+                <span asp-validation-for="Pizzas.Price" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <strong>Categoria:</strong>
+                <select asp-for="Pizzas.CategoryId" rows="10" class="d-block w-100">
+                    <option value=""></option>
+                    @foreach (Category category in Model.Categories)
+                    {
+                        @if (Model.Pizzas.CategoryId == category.Id)
+                        {
+                            <option value="@category.Id" selected>@category.Title</option>
+                        }
+                        else
+                        {
+                            <option value="@category.Id">@category.Title</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <strong>Tags:</strong>
+                @for (int i = 0; i < Model.Ingredients.Count; i++)
+                {
+                    <div>
+                        <input type="checkbox" name="SelectedIngredients" value="@Model.Ingredients[i].Value"
+                        @(Model.SelectedIngredients.Contains(Model.Ingredients[i].Value) ? "checked" : "") />
+                        @Model.Ingredients[i].Text
+                    </div>
+                }
+            </div>
+            <div class="text-end">
+                <input type="submit" class="show-button" value="Save" />
+            </div>
+        </form>
+    </div>
+    </div>
+}
+else
+{
+    <div class="text-center text-white my-5 py-5">
+        <h1>Only Admins are authorized</h1>
+    </div>
+}

@@ -1,0 +1,51 @@
+﻿@using la_mia_pizzeria_static.Data
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_MyLayout";
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+    
+    Pizzas margherita = new Pizzas("Margherita", "Pomodoro, Mozzarella e Basilico", "~/img/margherita.jpg", 6.59);
+    Pizzas capriciosa = new Pizzas("Capriciosa", "Un po' di tutto", "~/img/capriciosa.jpg", 9.55);
+    Pizzas diavola = new Pizzas("Diavola", "Pomodoro, Mozzarella e Salamino piccante", "~/img/diavola.jpg", 8.01);
+    Pizzas diavola2 = new Pizzas("Diavola2", "Pomodoro, Mozzarella e Salamino piccante senza glutine", "~/img/diavola.jpg", 8.01);
+
+    List<Pizzas> pizzasList = new List<Pizzas>();
+    pizzasList.Add(margherita);
+    pizzasList.Add(capriciosa);
+    pizzasList.Add(diavola);
+    pizzasList.Add(diavola2);
+}
+
+<div class="container-lg text-center">
+    <h1 class="main-title mt-5">
+        Welcome to My
+        <span style="color: red;">Pizzeria</span>
+    </h1>
+   <p class="my-3 fs-4">
+       Today you can chose between our specialities
+   </p>
+    <div class="table-responsive mx-5 container-lg">
+        <table class="table table-striped">
+            <thead>
+                <tr class="fs-4">
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody >
+                @foreach (var pizza in pizzasList)
+                {
+                    <tr class="fs-4" style="vertical-align: middle;">
+                        <td>@pizza.Name</td>
+                        <td>@pizza.Description</td>
+                        <td><img src=@Url.Content(pizza.Image) class="img-fluid" style="max-width: 200px;"></td>
+                        <td>@pizza.Price &euro;</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

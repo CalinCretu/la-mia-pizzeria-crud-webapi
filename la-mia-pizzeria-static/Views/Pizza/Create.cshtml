@@ -1,0 +1,79 @@
+﻿@using la_mia_pizzeria_static.Data
+@model PizzasFormModel
+
+<link rel="stylesheet" href="~/css/Create.css" asp-append-version="true" />
+
+@if (User.IsInRole("Admin"))
+{
+    <div class="main">
+    <div class="container d-flex justify-content-center align-items-start min-vh-100 mt-5">
+        <form asp-controller="Pizza" asp-action="Create" method="post" class="form-pizza bg-dark text-white p-4 rounded">
+            @Html.AntiForgeryToken()
+            <div class="text-center">
+                <h2>Add New Pizza</h2>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Pizzas.Name" class="form-label"><strong>Nome:</strong></label>
+                <input asp-for="Pizzas.Name" class="form-control" />
+                <span asp-validation-for="Pizzas.Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Pizzas.Description" class="form-label"><strong>Descrizione:</strong></label>
+                <input asp-for="Pizzas.Description" class="form-control" />
+                <span asp-validation-for="Pizzas.Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Pizzas.Image" class="form-label"><strong>Foto (Superflua):</strong></label>
+                <input asp-for="Pizzas.Image" class="form-control" />
+                <span asp-validation-for="Pizzas.Image" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Pizzas.Price" class="form-label"><strong>Prezzo:</strong></label>
+                <input asp-for="Pizzas.Price" class="form-control" />
+                <span asp-validation-for="Pizzas.Price" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <strong>Categoria:</strong>
+                <select asp-for="Pizzas.CategoryId" class="d-block w-100">
+                    <option value=""></option>
+                    @foreach (Category category in Model.Categories)
+                    {
+                        @if (Model.Pizzas.CategoryId == category.Id)
+                        {
+                            <option value="@category.Id" selected>@category.Title</option>
+                        }
+                        else
+                        {
+                            <option value="@category.Id">@category.Title</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="mb-3 d-flex flex-wrap gap-2">
+                <div><strong>Ingredienti: </strong></div>
+                <div class=" d-flex flex-wrap gap-2">
+                    @for (int i = 0; i < Model.Ingredients.Count; i++)
+                    {
+                        <div>
+                            <input type="checkbox" name="SelectedIngredients" value="@Model.Ingredients[i].Value"
+                            @(Model.SelectedIngredients.Contains(Model.Ingredients[i].Value) ? "checked" : "") />
+                            @Model.Ingredients[i].Text
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="text-end">
+                <input type="submit" class="show-button" value="Crea">
+            </div>
+        </form>
+    </div>
+    </div>
+
+}
+else
+{
+    <div class="text-center text-white my-5 py-5">
+        <h1>Only Admins are authorized</h1>
+    </div>
+    
+}
