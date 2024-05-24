@@ -1,4 +1,4 @@
-﻿﻿<div class="container">
+﻿<div class="container">
     <div class="row">
         <div class="col"><h1>Crea Pizza</h1></div>
     </div>
@@ -7,15 +7,15 @@
             <form onsubmit="creaPizza(event)" method="post">
                 <div class="mb-3">
                     <strong>Nome:</strong>
-                    <input id="PizzaName" type="text" class="d-block w-100" />
+                    <input id="PizzaName" type="text" class="d-block w-100" required />
                 </div>
                 <div class="mb-3">
                     <strong>Descrizione:</strong>
-                    <input id="PizzaDescription" type="text" class="d-block w-100 is-invalid" />
+                    <textarea id="PizzaDescription" class="d-block w-100" required></textarea>
                 </div>
                 <div class="mb-3">
                     <strong>Prezzo:</strong>
-                    <input id="PizzaPrice" type="text" class="d-block w-100 is-invalid" />
+                    <input id="PizzaPrice" type="number" step="0.01" class="d-block w-100" required />
                 </div>
                 <div class="mb-3">
                     <input type="submit" class="btn btn-success" value="Crea" />
@@ -30,18 +30,20 @@
 <script>
     function creaPizza(evt) {
         evt.preventDefault();
-        var nome = document.getElementById('PizzaName').value;
+        var name = document.getElementById('PizzaName').value;
         var description = document.getElementById('PizzaDescription').value;
+        var price = document.getElementById('PizzaPrice').value
 
         axios.post('/api/PizzaWebApi/CreatePizza', {
             name: name,
-            description: description
+            description: description,
+            price: price
         })
             .then(function (response) {
-                console.log(response);
+                window.location.href = '/Home/Index';
             })
             .catch(function (error) {
-                console.log(error);
+                console.error(error);
             });
     }
 </script>
