@@ -49,10 +49,10 @@ namespace la_mia_pizzeria_static.Data
             return db.Pizzas.FirstOrDefault(p => p.Id == id);
         }
 
-        public static Pizzas GetPizzaByName( string name )
+        public static List<Pizzas> GetPizzaByName( string name )
         {
             using PizzasContext db = new PizzasContext();
-            return db.Pizzas.FirstOrDefault( p => p.Name == name);
+            return db.Pizzas.Where(p => p.Name.ToLower().Contains(name.ToLower())).ToList();
         }
 
         public static Ingredient GetIngredientById(int id)

@@ -25,13 +25,15 @@ namespace la_mia_pizzeria_static.Controllers
             return Ok(pizza);
         }
 
-        [HttpGet("{name}")]
-        public IActionResult GetPizzaByName(string name)
+        [HttpGet("{name?}")]
+        public IActionResult GetPizzaByName(string? name)
         {
-            var pizza = PizzaManager.GetPizzaByName(name);
-            if (pizza == null)
-                return NotFound();
-            return Ok(pizza);
+            if (name == null)
+            {
+                return Ok(PizzaManager.GetAllPizzas());
+            }
+            //var pizza = PizzaManager.GetPizzaByName(name);
+            return Ok(PizzaManager.GetPizzaByName(name));
         }
 
         [HttpPost]
